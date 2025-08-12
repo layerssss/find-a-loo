@@ -1,4 +1,4 @@
-import { locationContext } from "@/providers/LocationProvider";
+import { locationContext } from "@/src/providers/LocationProvider";
 import { useContext, useState } from "react";
 import { View } from "react-native";
 import MapView, { Marker } from "react-native-maps";

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "find-a-loo",
+    "name": "Find a Loo",
     "slug": "find-a-loo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,13 +11,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
-    },
+    "android": {},
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -34,9 +28,6 @@
           "backgroundColor": "#ffffff"
         }
       ]
-    ],
-    "experiments": {
-      "typedRoutes": true
-    }
+    ]
   }
 }

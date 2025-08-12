@@ -1,15 +1,20 @@
 import {
-    LocationObjectCoords,
-    LocationSubscription,
-    requestForegroundPermissionsAsync,
-    watchPositionAsync,
+  LocationObjectCoords,
+  LocationSubscription,
+  requestForegroundPermissionsAsync,
+  watchPositionAsync,
 } from "expo-location";
 import { createContext, useEffect, useState } from "react";
 
 export const locationContext = createContext<{
   coords: LocationObjectCoords | null;
+  locationPermissionRejected: boolean;
   requestLocation: () => Promise<void>;
-}>({ coords: null, requestLocation: async () => {} });
+}>({
+  coords: null,
+  locationPermissionRejected: false,
+  requestLocation: async () => {},
+});
 
 export default function LocationProvider({
   children,
@@ -17,6 +22,8 @@ export default function LocationProvider({
   children: React.ReactNode;
 }) {
   const [coords, setCoords] = useState<LocationObjectCoords | null>(null);
+  const [locationPermissionRejected, locationPermissionRejectedSet] =
+    useState(false);
   const [locationSubscription, locationSubscriptionSet] =
     useState<LocationSubscription | null>(null);
 
@@ -24,8 +31,10 @@ export default function LocationProvider({
     if (locationSubscription) return;
     const { status } = await requestForegroundPermissionsAsync();
     if (status !== "granted") {
+      locationPermissionRejectedSet(true);
       return console.error("Location permission not granted");
     }
+    locationPermissionRejectedSet(false);
     const locationSubscriptionNew = await watchPositionAsync({}, (location) => {
       setCoords(location.coords);
     });
@@ -43,7 +52,9 @@ export default function LocationProvider({
   }, []);
 
   return (
-    <locationContext.Provider value={{ coords, requestLocation }}>
+    <locationContext.Provider
+      value={{ coords, requestLocation, locationPermissionRejected }}
+    >
       {children}
     </locationContext.Provider>
   );
