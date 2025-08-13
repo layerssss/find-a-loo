@@ -12,10 +12,15 @@
       "supportsTablet": true,
       "bundleIdentifier": "in.micy.findaloo",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "We use your current location to show you where you are on the map."
       }
     },
-    "android": {},
+    "android": {
+      "package": "in.micy.findaloo",
+      "versionCode": 16,
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
