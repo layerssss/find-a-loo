@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import Slider from "@react-native-community/slider";
 import { useScrollToTop } from "@react-navigation/native";
 import { useThrottle } from "@uidotdev/usehooks";
-import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { Button, Card, Surface, Text } from "react-native-paper";
@@ -20,7 +20,6 @@ const HOME_SCREEN_QUERY = gql(/* GraphQL */ `
       dataProvider {
         id
         name
-        logo
       }
     }
   }
@@ -32,6 +31,7 @@ export default function HomeScreen() {
   const [distanceMeters, setDistanceMeters] = useState(1000);
   const distanceMetersThrottled = useThrottle(distanceMeters, 500);
 
+  const router = useRouter();
   const { data, error } = useQuery(HOME_SCREEN_QUERY, {
     variables: {
       origin: {
@@ -98,39 +98,24 @@ export default function HomeScreen() {
       <FlatList
         data={loos}
         ref={flatListRef}
-        style={{ gap: 10, padding: 10 }}
+        style={{ padding: 5 }}
+        keyExtractor={(loo) => loo.id}
         renderItem={({ item: loo }) => (
-          <View style={{ gap: 10 }}>
-            {loos.map((loo) => (
-              <Card key={loo.id}>
-                <Card.Title title={loo.name} />
-                <Card.Content>
-                  <Text>{loo.lonlatDescription}</Text>
-                  <Text>{loo.distanceMeters} meters away</Text>
-                  {loo.dataProvider && (
-                    <View
-                      style={{
-                        flexDirection: "row-reverse",
-                        alignItems: "center",
-                        gap: 5,
-                      }}
-                    >
-                      {loo.dataProvider.logo ? (
-                        <Image
-                          alt={loo.dataProvider.name}
-                          source={{ uri: loo.dataProvider.logo }}
-                          style={{ width: 32, height: 32 }}
-                          contentFit="contain"
-                        />
-                      ) : (
-                        <Text>{loo.dataProvider?.name}</Text>
-                      )}
-                    </View>
-                  )}
-                </Card.Content>
-              </Card>
-            ))}
-          </View>
+          <Card
+            onPress={() => {
+              router.navigate(`/loos/${loo.id}`);
+            }}
+            style={{ margin: 5 }}
+          >
+            <Card.Title title={loo.name} />
+            <Card.Content>
+              <Text>{loo.lonlatDescription}</Text>
+              <Text>{loo.distanceMeters} meters away</Text>
+              {loo.dataProvider && (
+                <Text variant="bodySmall">{loo.dataProvider?.name}</Text>
+              )}
+            </Card.Content>
+          </Card>
         )}
       />
       {toolbar}

@@ -14,12 +14,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n        logo\n      }\n    }\n  }\n": typeof types.HomeScreenDocument,
+    "\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n      }\n    }\n  }\n": typeof types.HomeScreenDocument,
     "\n  query MapScreenQuery($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlat {\n        lon\n        lat\n      }\n    }\n  }\n": typeof types.MapScreenQueryDocument,
+    "\n  query LooScreenQuery($looId: ID!) {\n    loo(id: $looId) {\n      id\n      name\n    }\n  }\n": typeof types.LooScreenQueryDocument,
 };
 const documents: Documents = {
-    "\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n        logo\n      }\n    }\n  }\n": types.HomeScreenDocument,
+    "\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n      }\n    }\n  }\n": types.HomeScreenDocument,
     "\n  query MapScreenQuery($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlat {\n        lon\n        lat\n      }\n    }\n  }\n": types.MapScreenQueryDocument,
+    "\n  query LooScreenQuery($looId: ID!) {\n    loo(id: $looId) {\n      id\n      name\n    }\n  }\n": types.LooScreenQueryDocument,
 };
 
 /**
@@ -39,11 +41,15 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n        logo\n      }\n    }\n  }\n"): (typeof documents)["\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n        logo\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query HomeScreen($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlatDescription\n      distanceMeters(origin: $origin)\n      dataProvider {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query MapScreenQuery($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlat {\n        lon\n        lat\n      }\n    }\n  }\n"): (typeof documents)["\n  query MapScreenQuery($origin: PointInput!, $distanceMeters: Int!) {\n    loos(origin: $origin, distanceMeters: $distanceMeters) {\n      id\n      name\n      lonlat {\n        lon\n        lat\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query LooScreenQuery($looId: ID!) {\n    loo(id: $looId) {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query LooScreenQuery($looId: ID!) {\n    loo(id: $looId) {\n      id\n      name\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

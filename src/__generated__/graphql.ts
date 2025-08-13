@@ -69,7 +69,13 @@ export type PointInput = {
 
 export type Query = {
   __typename?: 'Query';
+  loo?: Maybe<Loo>;
   loos: Array<Loo>;
+};
+
+
+export type QueryLooArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -84,7 +90,7 @@ export type HomeScreenQueryVariables = Exact<{
 }>;
 
 
-export type HomeScreenQuery = { __typename?: 'Query', loos: Array<{ __typename?: 'Loo', id: string, name: string, lonlatDescription?: string | null, distanceMeters?: number | null, dataProvider?: { __typename?: 'DataProvider', id: string, name: string, logo?: string | null } | null }> };
+export type HomeScreenQuery = { __typename?: 'Query', loos: Array<{ __typename?: 'Loo', id: string, name: string, lonlatDescription?: string | null, distanceMeters?: number | null, dataProvider?: { __typename?: 'DataProvider', id: string, name: string } | null }> };
 
 export type MapScreenQueryQueryVariables = Exact<{
   origin: PointInput;
@@ -94,6 +100,14 @@ export type MapScreenQueryQueryVariables = Exact<{
 
 export type MapScreenQueryQuery = { __typename?: 'Query', loos: Array<{ __typename?: 'Loo', id: string, name: string, lonlat: { __typename?: 'Point', lon: number, lat: number } }> };
 
+export type LooScreenQueryQueryVariables = Exact<{
+  looId: Scalars['ID']['input'];
+}>;
 
-export const HomeScreenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomeScreen"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"origin"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PointInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distanceMeters"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"origin"},"value":{"kind":"Variable","name":{"kind":"Name","value":"origin"}}},{"kind":"Argument","name":{"kind":"Name","value":"distanceMeters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distanceMeters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"lonlatDescription"}},{"kind":"Field","name":{"kind":"Name","value":"distanceMeters"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"origin"},"value":{"kind":"Variable","name":{"kind":"Name","value":"origin"}}}]},{"kind":"Field","name":{"kind":"Name","value":"dataProvider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"logo"}}]}}]}}]}}]} as unknown as DocumentNode<HomeScreenQuery, HomeScreenQueryVariables>;
+
+export type LooScreenQueryQuery = { __typename?: 'Query', loo?: { __typename?: 'Loo', id: string, name: string } | null };
+
+
+export const HomeScreenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomeScreen"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"origin"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PointInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distanceMeters"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"origin"},"value":{"kind":"Variable","name":{"kind":"Name","value":"origin"}}},{"kind":"Argument","name":{"kind":"Name","value":"distanceMeters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distanceMeters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"lonlatDescription"}},{"kind":"Field","name":{"kind":"Name","value":"distanceMeters"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"origin"},"value":{"kind":"Variable","name":{"kind":"Name","value":"origin"}}}]},{"kind":"Field","name":{"kind":"Name","value":"dataProvider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<HomeScreenQuery, HomeScreenQueryVariables>;
 export const MapScreenQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MapScreenQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"origin"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PointInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distanceMeters"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"origin"},"value":{"kind":"Variable","name":{"kind":"Name","value":"origin"}}},{"kind":"Argument","name":{"kind":"Name","value":"distanceMeters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distanceMeters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"lonlat"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lon"}},{"kind":"Field","name":{"kind":"Name","value":"lat"}}]}}]}}]}}]} as unknown as DocumentNode<MapScreenQueryQuery, MapScreenQueryQueryVariables>;
+export const LooScreenQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LooScreenQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"looId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"looId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<LooScreenQueryQuery, LooScreenQueryQueryVariables>;

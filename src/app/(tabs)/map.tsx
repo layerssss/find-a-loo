@@ -3,8 +3,9 @@ import handleError from "@/src/helpers/handleError";
 import { locationContext } from "@/src/providers/LocationProvider";
 import { useQuery } from "@apollo/client";
 import { useThrottle } from "@uidotdev/usehooks";
+import { useRouter } from "expo-router";
 import { useContext, useEffect, useState } from "react";
-import { View } from "react-native";
+import { useColorScheme, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 type Region = {
@@ -71,6 +72,8 @@ export default function MapScreen() {
       setLoos(data.loos);
     }
   }, [data]);
+  const router = useRouter();
+  const colorScheme = useColorScheme();
 
   return (
     <View style={{ flex: 1 }}>
@@ -79,25 +82,31 @@ export default function MapScreen() {
         initialRegion={region}
         onRegionChangeComplete={regionSet}
       >
+        {loos.map((loo, looIndex) => (
+          <Marker
+            key={looIndex}
+            image={
+              colorScheme === "dark"
+                ? require("@/assets/images/toilet_icon_inverse.png")
+                : require("@/assets/images/toilet_icon.png")
+            }
+            coordinate={{
+              latitude: loo.lonlat.lat,
+              longitude: loo.lonlat.lon,
+            }}
+            onPress={() => {
+              router.navigate(`/loos/${loo.id}`);
+            }}
+          />
+        ))}
         {coords && (
           <Marker
             coordinate={{
               latitude: coords.latitude,
               longitude: coords.longitude,
             }}
-            title="Your Location"
           />
         )}
-        {loos.map((loo) => (
-          <Marker
-            key={loo.id}
-            coordinate={{
-              latitude: loo.lonlat.lat,
-              longitude: loo.lonlat.lon,
-            }}
-            title={loo.name}
-          />
-        ))}
       </MapView>
     </View>
   );

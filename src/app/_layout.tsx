@@ -1,24 +1,14 @@
 import ApiProvider from "@/src/providers/ApiProvider";
 import LocationProvider from "@/src/providers/LocationProvider";
-import {
-    DarkTheme as NavigationDarkTheme,
-    DefaultTheme as NavigationDefaultTheme,
-    ThemeProvider,
-} from "@react-navigation/native";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { useColorScheme } from "react-native";
-import { adaptNavigationTheme, PaperProvider } from "react-native-paper";
+import NavigationThemeProvider from "../providers/NavigationThemeProvider";
+import PaperProvider from "../providers/PaperProvider";
 
 SplashScreen.preventAutoHideAsync();
-const { DarkTheme, LightTheme } = adaptNavigationTheme({
-  reactNavigationLight: NavigationDefaultTheme,
-  reactNavigationDark: NavigationDarkTheme,
-});
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loading, loadingSet] = useState(true);
 
   useEffect(() => {
@@ -36,16 +26,21 @@ export default function RootLayout() {
     <>
       <ApiProvider>
         <PaperProvider>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : LightTheme}
-          >
+          <NavigationThemeProvider>
             <LocationProvider>
               <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="loos/[looId]"
+                  options={{
+                    title: "Details",
+                    headerBackTitle: "Back",
+                  }}
+                />
               </Stack>
               <StatusBar style="auto" />
             </LocationProvider>
-          </ThemeProvider>
+          </NavigationThemeProvider>
         </PaperProvider>
       </ApiProvider>
     </>
